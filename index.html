@@ -41,24 +41,24 @@
 
 <script>
     const jobs = [
-        { name: "Singer", img: "Singer performing on stage with microphone, spotlights, and concert setting.jpg", clues: ["I perform for a crowd.", "I use a microphone.", "I stand on a stage.", "I sing songs for my fans.", "I love to perform music."] },
-        { name: "Scientist", img: "Scientist in laboratory with microscope, test tubes, lab equipment, and research tools.jpg", clues: ["I work in a lab.", "I use a microscope.", "I do experiments.", "I search for new discoveries.", "I study science."] },
-        { name: "Nurse", img: "Nurse in hospital with medical equipment, patient care setting, stethoscope, and healthcare environment.jpg", clues: ["I work in a hospital.", "I wear scrubs.", "I help take care of sick patients.", "I use a stethoscope.", "I help people feel better."] },
-        { name: "Mechanic", img: "Mechanic in auto repair shop with tools, car lift, engine parts, and garage equipment.jpg", clues: ["I work in a garage.", "I use heavy wrenches.", "I fix cars.", "I work on engines.", "I help people when their car breaks down."] },
-        { name: "Artist", img: "Artist in art studio with easel, paints, brushes, canvas, and art supplies.jpg", clues: ["I work in a studio.", "I use brushes and paint.", "I create beautiful pictures.", "I use an easel.", "I am very creative."] },
-        { name: "Postman", img: "Postman delivering mail with mailbag, letters, packages, and postal uniform.jpg", clues: ["I walk through neighborhoods.", "I carry a big bag.", "I deliver letters and packages.", "I visit many houses every day.", "I bring people their mail."] },
-        { name: "Bus Driver", img: "Bus driver in bus with steering wheel, driver's seat, and bus interior.jpg", clues: ["I drive a large vehicle.", "I follow a specific route.", "I help people get to work or school.", "I sit in the driver's seat.", "I pick up passengers."] },
-        { name: "Baker", img: "Baker in bakery with oven, bread, pastries, baking tools, and kitchen equipment.jpg", clues: ["I work in a bakery.", "I use an oven.", "I make delicious bread.", "I am covered in flour.", "I bake sweet treats."] },
-        { name: "Veterinarian", img: "Veterinarian in animal clinic examining pets with medical equipment and veterinary tools.jpg", clues: ["I work in a clinic.", "I take care of animals.", "I help sick pets.", "I check if animals are healthy.", "I love helping all kinds of creatures."] },
-        { name: "Photographer", img: "Photographer in studio with camera, lighting equipment, tripod, and photography gear.jpg", clues: ["I work in a studio.", "I use a professional camera.", "I take many pictures.", "I use bright lights.", "I help capture memories."] },
-        { name: "Hairdresser", img: "Hairdresser in hair salon with styling chair, scissors, combs, hair dryer, and salon equipment.jpg", clues: ["I work in a salon.", "I use sharp scissors.", "I help you look good.", "I use a hair dryer.", "I style people's hair."] },
-        { name: "Farmer", img: "Farmer working on farm with fields, crops, barn, tractor, and farming equipment.jpg", clues: ["I work on a farm.", "I grow crops.", "I drive a tractor.", "I love the outdoors.", "I help produce food."] },
-        { name: "Pilot", img: "Pilot in airplane cockpit with flight controls, instruments, and aviation equipment.jpg", clues: ["I work in an airplane.", "I sit in a cockpit.", "I fly long distances.", "I look at many instruments.", "I make sure passengers arrive safely."] },
-        { name: "Firefighter", img: "Firefighter at fire station with fire truck, firefighting gear, helmet, hose, and emergency equipment.jpg", clues: ["I work at a fire station.", "I wear a special helmet.", "I use a fire hose.", "I rush to emergencies.", "I help stop fires."] },
-        { name: "Police Officer", img: "Police officer at police station or on patrol with police car, uniform, badge, radio, and law enforcement equipment.jpg", clues: ["I work on patrol.", "I have a shiny badge.", "I drive a police car.", "I keep my city safe.", "I follow the law."] },
-        { name: "Chef", img: "Chef in a professional kitchen with cooking equipment, pots, pans, stove, ingredients, and restaurant kitchen setting.jpg", clues: ["I work in a restaurant.", "I wear a tall white hat.", "I cook delicious meals.", "I use pots and pans.", "I love making new recipes."] },
-        { name: "Doctor", img: "Doctor in a hospital or clinic with medical equipment, stethoscope, examination room, and patient care setting.jpg", clues: ["I work in a hospital.", "I wear a white coat.", "I use a stethoscope.", "I help diagnose illnesses.", "I help people live healthier lives."] },
-        { name: "Teacher", img: "Teacher in a classroom with students, desks, chalkboard, books, and teaching materials.jpg", clues: ["I work in a classroom.", "I write on a chalkboard.", "I explain new topics.", "I help students learn.", "I inspire young minds."] }
+        { name: "Singer", img: "singer.jpg", clues: ["I perform for a crowd.", "I use a microphone.", "I stand on a stage.", "I sing songs for my fans.", "I love to perform music."] },
+        { name: "Scientist", img: "scientist.jpg", clues: ["I work in a lab.", "I use a microscope.", "I do experiments.", "I search for new discoveries.", "I study science."] },
+        { name: "Nurse", img: "nurse.jpg", clues: ["I work in a hospital.", "I wear scrubs.", "I help take care of sick patients.", "I use a stethoscope.", "I help people feel better."] },
+        { name: "Mechanic", img: "mechanic.jpg", clues: ["I work in a garage.", "I use heavy wrenches.", "I fix cars.", "I work on engines.", "I help people when their car breaks down."] },
+        { name: "Artist", img: "artist.jpg", clues: ["I work in a studio.", "I use brushes and paint.", "I create beautiful pictures.", "I use an easel.", "I am very creative."] },
+        { name: "Postman", img: "postman.jpg", clues: ["I walk through neighborhoods.", "I carry a big bag.", "I deliver letters and packages.", "I visit many houses every day.", "I bring people their mail."] },
+        { name: "Bus Driver", img: "busdriver.jpg", clues: ["I drive a large vehicle.", "I follow a specific route.", "I help people get to work or school.", "I sit in the driver's seat.", "I pick up passengers."] },
+        { name: "Baker", img: "baker.jpg", clues: ["I work in a bakery.", "I use an oven.", "I make delicious bread.", "I am covered in flour.", "I bake sweet treats."] },
+        { name: "Veterinarian", img: "veterinarian.jpg", clues: ["I work in a clinic.", "I take care of animals.", "I help sick pets.", "I check if animals are healthy.", "I love helping all kinds of creatures."] },
+        { name: "Photographer", img: "photographer.jpg", clues: ["I work in a studio.", "I use a professional camera.", "I take many pictures.", "I use bright lights.", "I help capture memories."] },
+        { name: "Hairdresser", img: "hairdresser.jpg", clues: ["I work in a salon.", "I use sharp scissors.", "I help you look good.", "I use a hair dryer.", "I style people's hair."] },
+        { name: "Farmer", img: "farmer.jpg", clues: ["I work on a farm.", "I grow crops.", "I drive a tractor.", "I love the outdoors.", "I help produce food."] },
+        { name: "Pilot", img: "pilot.jpg", clues: ["I work in an airplane.", "I sit in a cockpit.", "I fly long distances.", "I look at many instruments.", "I make sure passengers arrive safely."] },
+        { name: "Firefighter", img: "firefighter.jpg", clues: ["I work at a fire station.", "I wear a special helmet.", "I use a fire hose.", "I rush to emergencies.", "I help stop fires."] },
+        { name: "Police Officer", img: "police.jpg", clues: ["I work on patrol.", "I have a shiny badge.", "I drive a police car.", "I keep my city safe.", "I follow the law."] },
+        { name: "Chef", img: "chef.jpg", clues: ["I work in a restaurant.", "I wear a tall white hat.", "I cook delicious meals.", "I use pots and pans.", "I love making new recipes."] },
+        { name: "Doctor", img: "doctor.jpg", clues: ["I work in a hospital.", "I wear a white coat.", "I use a stethoscope.", "I help diagnose illnesses.", "I help people live healthier lives."] },
+        { name: "Teacher", img: "teacher.jpg", clues: ["I work in a classroom.", "I write on a chalkboard.", "I explain new topics.", "I help students learn.", "I inspire young minds."] }
     ];
 
     let jobIndex = 0;
