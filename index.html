@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Guess the Job - Interactive</title>
+    <title>Guess the Job - Detective Edition</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; display: flex; height: 100vh; margin: 0; background: #eef2f3; overflow: hidden; }
         #left { width: 40%; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
@@ -12,8 +12,9 @@
         #progress { font-size: 20px; color: #555; font-weight: bold; }
         button { padding: 15px 30px; font-size: 22px; cursor: pointer; background: #28a745; color: white; border: none; border-radius: 10px; }
         
+        /* Right Panel: The single image revealed in pieces */
         #right { width: 60%; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); background: #333; gap: 2px; border: 5px solid white; }
-        .tile { background-color: #555; background-size: cover; background-position: center; transition: background 0.3s; }
+        .tile { background-color: #555; background-size: 300% 300%; border: 1px solid #000; }
         .hidden { background-image: none !important; background-color: #555 !important; }
     </style>
 </head>
@@ -28,9 +29,16 @@
 </div>
 
 <div id="right">
-    <div class="tile hidden" id="t0"></div><div class="tile hidden" id="t1"></div><div class="tile hidden" id="t2"></div>
-    <div class="tile hidden" id="t3"></div><div class="tile hidden" id="t4"></div><div class="tile hidden" id="t5"></div>
-    <div class="tile hidden" id="t6"></div><div class="tile hidden" id="t7"></div><div class="tile hidden" id="t8"></div>
+    <!-- Tiles 0-8 -->
+    <div class="tile hidden" id="t0" style="background-position: 0% 0%;"></div>
+    <div class="tile hidden" id="t1" style="background-position: 50% 0%;"></div>
+    <div class="tile hidden" id="t2" style="background-position: 100% 0%;"></div>
+    <div class="tile hidden" id="t3" style="background-position: 0% 50%;"></div>
+    <div class="tile hidden" id="t4" style="background-position: 50% 50%;"></div>
+    <div class="tile hidden" id="t5" style="background-position: 100% 50%;"></div>
+    <div class="tile hidden" id="t6" style="background-position: 0% 100%;"></div>
+    <div class="tile hidden" id="t7" style="background-position: 50% 100%;"></div>
+    <div class="tile hidden" id="t8" style="background-position: 100% 100%;"></div>
 </div>
 
 <script>
