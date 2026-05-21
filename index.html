@@ -10,12 +10,10 @@
         h1 { color: #2c3e50; font-size: 35px; margin: 0; }
         .clue-box { font-size: 32px; font-weight: bold; color: #34495e; min-height: 180px; margin: 20px 0; }
         #progress { font-size: 20px; color: #555; font-weight: bold; }
-        button { padding: 15px 30px; font-size: 22px; cursor: pointer; background: #28a745; color: white; border: none; border-radius: 10px; transition: 0.2s; }
-        button:hover { background: #218838; }
+        button { padding: 15px 30px; font-size: 22px; cursor: pointer; background: #28a745; color: white; border: none; border-radius: 10px; }
         
         #right { width: 60%; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); background: #333; gap: 2px; border: 5px solid white; }
-        /* Added a background color fallback if images take time to load */
-        .tile { background-color: #2c3e50; background-size: 300% 300%; border: 1px solid #000; transition: background 0.3s; }
+        .tile { background-color: #2c3e50; background-size: 300% 300%; border: 1px solid #000; }
         .hidden { background-image: none !important; background-color: #555 !important; }
     </style>
 </head>
@@ -24,8 +22,8 @@
 <div id="left">
     <img id="detective-img" src="https://cdn-icons-png.flaticon.com/512/2921/2921225.png" alt="Detective">
     <h1 id="job-title">Guess the Job!</h1>
-    <div class="clue-box" id="clue-text">Ready for the next mystery?</div>
-    <div id="progress">Job 1 of 20</div>
+    <div class="clue-box" id="clue-text">Ready for the mystery?</div>
+    <div id="progress">Job 1 of 18</div>
     <button id="action-btn" onclick="gameLogic()">Start Game</button>
 </div>
 
@@ -42,65 +40,56 @@
 </div>
 
 <script>
-    // Using a reliable keyword-based image service
     const jobs = [
-        { name: "Teacher", term: "teacher", clues: ["I work in a school.", "I use a whiteboard.", "I work with other teachers.", "I help students learn.", "My main job is to teach."] },
-        { name: "Doctor", term: "doctor", clues: ["I work in a hospital.", "I use a stethoscope.", "I work with nurses.", "I help sick people.", "My main job is to help people heal."] },
-        { name: "Chef", term: "chef", clues: ["I work in a kitchen.", "I use a frying pan.", "I work with waiters.", "I help hungry people.", "My main job is to cook food."] },
-        { name: "Police Officer", term: "police", clues: ["I work on the street.", "I use a shiny badge.", "I work with other officers.", "I help in dangerous times.", "My main job is to keep people safe."] },
-        { name: "Firefighter", term: "firefighter", clues: ["I work at a fire station.", "I use a water hose.", "I work with a rescue team.", "I help people in fires.", "My main job is to stop fires."] },
-        { name: "Pilot", term: "airplane", clues: ["I work in an airplane.", "I use buttons and levers.", "I work with flight crew.", "I help passengers travel.", "My main job is to fly the plane."] },
-        { name: "Waiter", term: "waiter", clues: ["I work in a restaurant.", "I use a serving tray.", "I work with chefs.", "I help hungry people.", "My main job is to serve food."] },
-        { name: "Dentist", term: "dentist", clues: ["I work in a clinic.", "I use a small mirror.", "I work with nurses.", "I help with toothaches.", "My main job is to clean teeth."] },
-        { name: "Farmer", term: "farmer", clues: ["I work on a farm.", "I use a big tractor.", "I work with farm animals.", "I help feed families.", "My main job is to grow food."] },
-        { name: "Hairdresser", term: "hairdresser", clues: ["I work in a salon.", "I use sharp scissors.", "I work with other stylists.", "I help you look good.", "My main job is to cut hair."] },
-        { name: "Photographer", term: "photographer", clues: ["I work in a studio.", "I use a camera.", "I work with models.", "I help save memories.", "My main job is to take photos."] },
-        { name: "Veterinarian", term: "veterinarian", clues: ["I work in an animal clinic.", "I use animal medicine.", "I work with assistants.", "I help sick pets.", "My main job is to care for animals."] },
-        { name: "Baker", term: "baker", clues: ["I work in a bakery.", "I use a big oven.", "I work with shop staff.", "I help hungry people.", "My main job is to bake bread."] },
-        { name: "Bus Driver", term: "bus", clues: ["I work on the road.", "I use a big bus.", "I work with passengers.", "I help you travel.", "My main job is to drive the bus."] },
-        { name: "Postman", term: "mailman", clues: ["I walk in neighborhoods.", "I use a heavy bag.", "I work at the post office.", "I help you get letters.", "My main job is to deliver mail."] },
-        { name: "Artist", term: "painter", clues: ["I work in a studio.", "I use a paintbrush.", "I work with galleries.", "I help people enjoy art.", "My main job is to paint."] },
-        { name: "Mechanic", term: "mechanic", clues: ["I work in a garage.", "I use a heavy wrench.", "I work with tools.", "I help people with cars.", "My main job is to fix cars."] },
-        { name: "Nurse", term: "nurse", clues: ["I work in a hospital.", "I use a thermometer.", "I work with doctors.", "I help sick patients.", "My main job is to care for you."] },
-        { name: "Scientist", term: "scientist", clues: ["I work in a lab.", "I use test tubes.", "I work with researchers.", "I help answer questions.", "My main job is to do experiments."] },
-        { name: "Singer", term: "singer", clues: ["I work on a stage.", "I use a microphone.", "I work with a band.", "I help people feel happy.", "My main job is to sing songs."] }
+        { name: "Singer", img: "Singer performing on stage with microphone, spotlights, and concert setting.jpg", clues: ["I perform for a crowd.", "I use a microphone.", "I stand on a stage.", "I sing songs for my fans.", "I love to perform music."] },
+        { name: "Scientist", img: "Scientist in laboratory with microscope, test tubes, lab equipment, and research tools.jpg", clues: ["I work in a lab.", "I use a microscope.", "I do experiments.", "I search for new discoveries.", "I study science."] },
+        { name: "Nurse", img: "Nurse in hospital with medical equipment, patient care setting, stethoscope, and healthcare environment.jpg", clues: ["I work in a hospital.", "I wear scrubs.", "I help take care of sick patients.", "I use a stethoscope.", "I help people feel better."] },
+        { name: "Mechanic", img: "Mechanic in auto repair shop with tools, car lift, engine parts, and garage equipment.jpg", clues: ["I work in a garage.", "I use heavy wrenches.", "I fix cars.", "I work on engines.", "I help people when their car breaks down."] },
+        { name: "Artist", img: "Artist in art studio with easel, paints, brushes, canvas, and art supplies.jpg", clues: ["I work in a studio.", "I use brushes and paint.", "I create beautiful pictures.", "I use an easel.", "I am very creative."] },
+        { name: "Postman", img: "Postman delivering mail with mailbag, letters, packages, and postal uniform.jpg", clues: ["I walk through neighborhoods.", "I carry a big bag.", "I deliver letters and packages.", "I visit many houses every day.", "I bring people their mail."] },
+        { name: "Bus Driver", img: "Bus driver in bus with steering wheel, driver's seat, and bus interior.jpg", clues: ["I drive a large vehicle.", "I follow a specific route.", "I help people get to work or school.", "I sit in the driver's seat.", "I pick up passengers."] },
+        { name: "Baker", img: "Baker in bakery with oven, bread, pastries, baking tools, and kitchen equipment.jpg", clues: ["I work in a bakery.", "I use an oven.", "I make delicious bread.", "I am covered in flour.", "I bake sweet treats."] },
+        { name: "Veterinarian", img: "Veterinarian in animal clinic examining pets with medical equipment and veterinary tools.jpg", clues: ["I work in a clinic.", "I take care of animals.", "I help sick pets.", "I check if animals are healthy.", "I love helping all kinds of creatures."] },
+        { name: "Photographer", img: "Photographer in studio with camera, lighting equipment, tripod, and photography gear.jpg", clues: ["I work in a studio.", "I use a professional camera.", "I take many pictures.", "I use bright lights.", "I help capture memories."] },
+        { name: "Hairdresser", img: "Hairdresser in hair salon with styling chair, scissors, combs, hair dryer, and salon equipment.jpg", clues: ["I work in a salon.", "I use sharp scissors.", "I help you look good.", "I use a hair dryer.", "I style people's hair."] },
+        { name: "Farmer", img: "Farmer working on farm with fields, crops, barn, tractor, and farming equipment.jpg", clues: ["I work on a farm.", "I grow crops.", "I drive a tractor.", "I love the outdoors.", "I help produce food."] },
+        { name: "Pilot", img: "Pilot in airplane cockpit with flight controls, instruments, and aviation equipment.jpg", clues: ["I work in an airplane.", "I sit in a cockpit.", "I fly long distances.", "I look at many instruments.", "I make sure passengers arrive safely."] },
+        { name: "Firefighter", img: "Firefighter at fire station with fire truck, firefighting gear, helmet, hose, and emergency equipment.jpg", clues: ["I work at a fire station.", "I wear a special helmet.", "I use a fire hose.", "I rush to emergencies.", "I help stop fires."] },
+        { name: "Police Officer", img: "Police officer at police station or on patrol with police car, uniform, badge, radio, and law enforcement equipment.jpg", clues: ["I work on patrol.", "I have a shiny badge.", "I drive a police car.", "I keep my city safe.", "I follow the law."] },
+        { name: "Chef", img: "Chef in a professional kitchen with cooking equipment, pots, pans, stove, ingredients, and restaurant kitchen setting.jpg", clues: ["I work in a restaurant.", "I wear a tall white hat.", "I cook delicious meals.", "I use pots and pans.", "I love making new recipes."] },
+        { name: "Doctor", img: "Doctor in a hospital or clinic with medical equipment, stethoscope, examination room, and patient care setting.jpg", clues: ["I work in a hospital.", "I wear a white coat.", "I use a stethoscope.", "I help diagnose illnesses.", "I help people live healthier lives."] },
+        { name: "Teacher", img: "Teacher in a classroom with students, desks, chalkboard, books, and teaching materials.jpg", clues: ["I work in a classroom.", "I write on a chalkboard.", "I explain new topics.", "I help students learn.", "I inspire young minds."] }
     ];
 
     let jobIndex = 0;
-    let step = -1; 
+    let step = -1;
     const revealOrder = [4, 1, 7, 3, 5, 0, 2, 6, 8];
 
     function gameLogic() {
         const btn = document.getElementById('action-btn');
-        // We use source.unsplash.com as it is the most flexible for keyword-based search
-        const imageUrl = `url(https://source.unsplash.com/600x400/?${jobs[jobIndex].term})`;
-
         if (step === -1) {
             step = 0;
             document.getElementById('clue-text').innerText = jobs[jobIndex].clues[step];
             btn.innerText = "Next Clue";
-            document.getElementById('progress').innerText = `Job ${jobIndex + 1} of 20`;
+            document.getElementById('progress').innerText = `Job ${jobIndex + 1} of ${jobs.length}`;
             return;
         }
-
         if (step < 5) {
             document.getElementById('clue-text').innerText = jobs[jobIndex].clues[step];
             let tile = document.getElementById('t' + revealOrder[step]);
             tile.classList.remove('hidden');
-            tile.style.backgroundImage = imageUrl;
+            tile.style.backgroundImage = `url('${jobs[jobIndex].img}')`;
             step++;
             if (step === 5) btn.innerText = "Reveal Answer";
-        } 
-        else if (step === 5) {
+        } else if (step === 5) {
             document.querySelectorAll('.tile').forEach(t => {
                 t.classList.remove('hidden');
-                t.style.backgroundImage = imageUrl;
+                t.style.backgroundImage = `url('${jobs[jobIndex].img}')`;
             });
             document.getElementById('clue-text').innerHTML = `<strong>IT IS A: ${jobs[jobIndex].name}!</strong>`;
             btn.innerText = "Next Job";
             step = 6;
-        }
-        else {
+        } else {
             document.querySelectorAll('.tile').forEach(t => {
                 t.classList.add('hidden');
                 t.style.backgroundImage = 'none';
