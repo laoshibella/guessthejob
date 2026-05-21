@@ -8,7 +8,7 @@
         #left { width: 40%; padding: 50px; display: flex; flex-direction: column; justify-content: center; }
         #right { width: 60%; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); background: #333; gap: 2px; border: 5px solid white; }
         .tile { background-color: #555; background-size: 300% 300%; background-repeat: no-repeat; border: 1px solid #000; transition: background 0.3s; }
-        .hidden { background-color: #555; }
+        .hidden { background-color: #555; background-image: none !important; }
         button { padding: 15px 30px; font-size: 20px; cursor: pointer; background: #28a745; color: white; border: none; border-radius: 8px; margin-top: 20px; }
         h1 { color: #2c3e50; }
         .clue-box { font-size: 24px; font-weight: bold; color: #34495e; min-height: 120px; }
@@ -31,26 +31,26 @@
 
 <script>
     const jobs = [
-        { name: "Teacher", img: "https://images.unsplash.com/photo-1503676260728-1c00da073a90", clues: ["I work in a school.", "I use a whiteboard.", "I work with other teachers.", "I help students learn.", "My main job is to teach."] },
-        { name: "Doctor", img: "https://images.unsplash.com/photo-1579684385127-1f15d5082414", clues: ["I work in a hospital.", "I use a stethoscope.", "I work with nurses.", "I help sick people.", "My main job is to help people heal."] },
-        { name: "Chef", img: "https://images.unsplash.com/photo-1556910103-1c02745aae4d", clues: ["I work in a kitchen.", "I use a frying pan.", "I work with waiters.", "I help hungry people.", "My main job is to cook food."] },
-        { name: "Police Officer", img: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7", clues: ["I work on the street.", "I use a shiny badge.", "I work with other officers.", "I help in dangerous times.", "My main job is to keep people safe."] },
-        { name: "Firefighter", img: "https://images.unsplash.com/photo-1599739506085-e3b97b09c256", clues: ["I work at a fire station.", "I use a water hose.", "I work with a rescue team.", "I help people in fires.", "My main job is to stop fires."] },
-        { name: "Pilot", img: "https://images.unsplash.com/photo-1436490112270-49f826353916", clues: ["I work in an airplane.", "I use buttons and levers.", "I work with flight crew.", "I help passengers travel.", "My main job is to fly the plane."] },
-        { name: "Librarian", img: "https://images.unsplash.com/photo-1507842217343-583bb7270b66", clues: ["I work in a library.", "I use many books.", "I work with library staff.", "I help people find stories.", "My main job is to organize books."] },
-        { name: "Dentist", img: "https://images.unsplash.com/photo-1588776814546-1ffcf4726bb5", clues: ["I work in a clinic.", "I use a small mirror.", "I work with nurses.", "I help with toothaches.", "My main job is to clean teeth."] },
-        { name: "Farmer", img: "https://images.unsplash.com/photo-1523348837708-15d4a09cfacb", clues: ["I work on a farm.", "I use a big tractor.", "I work with farm animals.", "I help feed families.", "My main job is to grow food."] },
-        { name: "Hairdresser", img: "https://images.unsplash.com/photo-1560066984-1389b4cda4f6", clues: ["I work in a salon.", "I use sharp scissors.", "I work with other stylists.", "I help you look good.", "My main job is to cut hair."] },
-        { name: "Photographer", img: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e", clues: ["I work in a studio.", "I use a camera.", "I work with models.", "I help save memories.", "My main job is to take photos."] },
-        { name: "Veterinarian", img: "https://images.unsplash.com/photo-1628191013980-4966601b0f55", clues: ["I work in an animal clinic.", "I use animal medicine.", "I work with assistants.", "I help sick pets.", "My main job is to care for animals."] },
-        { name: "Baker", img: "https://images.unsplash.com/photo-1555507036-ab1f4038808a", clues: ["I work in a bakery.", "I use a big oven.", "I work with shop staff.", "I help hungry people.", "My main job is to bake bread."] },
-        { name: "Bus Driver", img: "https://images.unsplash.com/photo-1570125909517-53cb21c89ff2", clues: ["I work on the road.", "I use a big bus.", "I work with passengers.", "I help you travel.", "My main job is to drive the bus."] },
-        { name: "Mail Carrier", img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d", clues: ["I walk in neighborhoods.", "I use a heavy bag.", "I work at the post office.", "I help you get letters.", "My main job is to deliver mail."] },
-        { name: "Artist", img: "https://images.unsplash.com/photo-1513364776144-6096300fbd71", clues: ["I work in a studio.", "I use a paintbrush.", "I work with galleries.", "I help people enjoy art.", "My main job is to paint."] },
-        { name: "Mechanic", img: "https://images.unsplash.com/photo-1530047620292-38d58079603f", clues: ["I work in a garage.", "I use a heavy wrench.", "I work with tools.", "I help people with cars.", "My main job is to fix cars."] },
-        { name: "Nurse", img: "https://images.unsplash.com/photo-1584515933487-779824d29309", clues: ["I work in a hospital.", "I use a thermometer.", "I work with doctors.", "I help sick patients.", "My main job is to care for you."] },
-        { name: "Scientist", img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d", clues: ["I work in a lab.", "I use test tubes.", "I work with researchers.", "I help answer questions.", "My main job is to do experiments."] },
-        { name: "Singer", img: "https://images.unsplash.com/photo-1516280440614-6297240c0617", clues: ["I work on a stage.", "I use a microphone.", "I work with a band.", "I help people feel happy.", "My main job is to sing songs."] }
+        { name: "Teacher", img: "https://source.unsplash.com/600x400/?teacher", clues: ["I work in a school.", "I use a whiteboard.", "I work with other teachers.", "I help students learn.", "My main job is to teach."] },
+        { name: "Doctor", img: "https://source.unsplash.com/600x400/?doctor", clues: ["I work in a hospital.", "I use a stethoscope.", "I work with nurses.", "I help sick people.", "My main job is to help people heal."] },
+        { name: "Chef", img: "https://source.unsplash.com/600x400/?chef", clues: ["I work in a kitchen.", "I use a frying pan.", "I work with waiters.", "I help hungry people.", "My main job is to cook food."] },
+        { name: "Police Officer", img: "https://source.unsplash.com/600x400/?police", clues: ["I work on the street.", "I use a shiny badge.", "I work with other officers.", "I help in dangerous times.", "My main job is to keep people safe."] },
+        { name: "Firefighter", img: "https://source.unsplash.com/600x400/?firefighter", clues: ["I work at a fire station.", "I use a water hose.", "I work with a rescue team.", "I help people in fires.", "My main job is to stop fires."] },
+        { name: "Pilot", img: "https://source.unsplash.com/600x400/?pilot", clues: ["I work in an airplane.", "I use buttons and levers.", "I work with flight crew.", "I help passengers travel.", "My main job is to fly the plane."] },
+        { name: "Librarian", img: "https://source.unsplash.com/600x400/?librarian", clues: ["I work in a library.", "I use many books.", "I work with library staff.", "I help people find stories.", "My main job is to organize books."] },
+        { name: "Dentist", img: "https://source.unsplash.com/600x400/?dentist", clues: ["I work in a clinic.", "I use a small mirror.", "I work with nurses.", "I help with toothaches.", "My main job is to clean teeth."] },
+        { name: "Farmer", img: "https://source.unsplash.com/600x400/?farmer", clues: ["I work on a farm.", "I use a big tractor.", "I work with farm animals.", "I help feed families.", "My main job is to grow food."] },
+        { name: "Hairdresser", img: "https://source.unsplash.com/600x400/?hairdresser", clues: ["I work in a salon.", "I use sharp scissors.", "I work with other stylists.", "I help you look good.", "My main job is to cut hair."] },
+        { name: "Photographer", img: "https://source.unsplash.com/600x400/?photographer", clues: ["I work in a studio.", "I use a camera.", "I work with models.", "I help save memories.", "My main job is to take photos."] },
+        { name: "Veterinarian", img: "https://source.unsplash.com/600x400/?veterinarian", clues: ["I work in an animal clinic.", "I use animal medicine.", "I work with assistants.", "I help sick pets.", "My main job is to care for animals."] },
+        { name: "Baker", img: "https://source.unsplash.com/600x400/?baker", clues: ["I work in a bakery.", "I use a big oven.", "I work with shop staff.", "I help hungry people.", "My main job is to bake bread."] },
+        { name: "Bus Driver", img: "https://source.unsplash.com/600x400/?bus-driver", clues: ["I work on the road.", "I use a big bus.", "I work with passengers.", "I help you travel.", "My main job is to drive the bus."] },
+        { name: "Mail Carrier", img: "https://source.unsplash.com/600x400/?mail-carrier", clues: ["I walk in neighborhoods.", "I use a heavy bag.", "I work at the post office.", "I help you get letters.", "My main job is to deliver mail."] },
+        { name: "Artist", img: "https://source.unsplash.com/600x400/?artist", clues: ["I work in a studio.", "I use a paintbrush.", "I work with galleries.", "I help people enjoy art.", "My main job is to paint."] },
+        { name: "Mechanic", img: "https://source.unsplash.com/600x400/?mechanic", clues: ["I work in a garage.", "I use a heavy wrench.", "I work with tools.", "I help people with cars.", "My main job is to fix cars."] },
+        { name: "Nurse", img: "https://source.unsplash.com/600x400/?nurse", clues: ["I work in a hospital.", "I use a thermometer.", "I work with doctors.", "I help sick patients.", "My main job is to care for you."] },
+        { name: "Scientist", img: "https://source.unsplash.com/600x400/?scientist", clues: ["I work in a lab.", "I use test tubes.", "I work with researchers.", "I help answer questions.", "My main job is to do experiments."] },
+        { name: "Singer", img: "https://source.unsplash.com/600x400/?singer", clues: ["I work on a stage.", "I use a microphone.", "I work with a band.", "I help people feel happy.", "My main job is to sing songs."] }
     ];
 
     let jobIndex = 0;
