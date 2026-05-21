@@ -12,7 +12,6 @@
         #progress { font-size: 20px; color: #555; font-weight: bold; }
         button { padding: 15px 30px; font-size: 22px; cursor: pointer; background: #28a745; color: white; border: none; border-radius: 10px; }
         
-        /* Right Panel: The single image revealed in pieces */
         #right { width: 60%; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); background: #333; gap: 2px; border: 5px solid white; }
         .tile { background-color: #555; background-size: 300% 300%; border: 1px solid #000; }
         .hidden { background-image: none !important; background-color: #555 !important; }
@@ -23,13 +22,12 @@
 <div id="left">
     <img id="detective-img" src="https://cdn-icons-png.flaticon.com/512/2921/2921225.png" alt="Detective">
     <h1 id="job-title">Guess the Job!</h1>
-    <div class="clue-box" id="clue-text">Press Start to begin!</div>
+    <div class="clue-box" id="clue-text">Ready for the next mystery?</div>
     <div id="progress">Job 1 of 20</div>
-    <button id="action-btn" onclick="nextStep()">Start Game</button>
+    <button id="action-btn" onclick="gameLogic()">Start Game</button>
 </div>
 
 <div id="right">
-    <!-- Tiles 0-8 -->
     <div class="tile hidden" id="t0" style="background-position: 0% 0%;"></div>
     <div class="tile hidden" id="t1" style="background-position: 50% 0%;"></div>
     <div class="tile hidden" id="t2" style="background-position: 100% 0%;"></div>
@@ -66,28 +64,47 @@
     ];
 
     let jobIndex = 0;
-    let step = 0;
+    let step = -1; // -1 means "Blank/Transition" state
     const revealOrder = [4, 1, 7, 3, 5, 0, 2, 6, 8];
 
-    function nextStep() {
+    function gameLogic() {
         const btn = document.getElementById('action-btn');
+        
+        // Blank state (Transition)
+        if (step === -1) {
+            step = 0;
+            document.getElementById('clue-text').innerText = jobs[jobIndex].clues[step];
+            btn.innerText = "Next Clue";
+            document.getElementById('progress').innerText = `Job ${jobIndex + 1} of 20`;
+            return;
+        }
+
+        // Clue revealing state
         if (step < 5) {
             document.getElementById('clue-text').innerText = jobs[jobIndex].clues[step];
             let tile = document.getElementById('t' + revealOrder[step]);
             tile.classList.remove('hidden');
             tile.style.backgroundImage = `url(${jobs[jobIndex].img})`;
             step++;
-            btn.innerText = "Next Clue";
-        } else {
-            document.querySelectorAll('.tile').forEach(t => {
-                t.classList.remove('hidden');
-                t.style.backgroundImage = `url(${jobs[jobIndex].img})`;
-            });
+            if (step === 5) btn.innerText = "Reveal Answer";
+        } 
+        // Reveal Answer state
+        else if (step === 5) {
+            document.querySelectorAll('.tile').forEach(t => t.classList.remove('hidden'));
             document.getElementById('clue-text').innerHTML = `<strong>IT IS A: ${jobs[jobIndex].name}!</strong>`;
             btn.innerText = "Next Job";
-            step = 0;
+            step = 6;
+        }
+        // Reset state (Blank/Transition)
+        else {
+            document.querySelectorAll('.tile').forEach(t => {
+                t.classList.add('hidden');
+                t.style.backgroundImage = 'none';
+            });
             jobIndex = (jobIndex + 1) % jobs.length;
-            document.getElementById('progress').innerText = `Job ${jobIndex + 1} of 20`;
+            step = -1;
+            document.getElementById('clue-text').innerText = "Ready for the next mystery?";
+            btn.innerText = "Start Next Job";
         }
     }
 </script>
