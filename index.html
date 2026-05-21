@@ -4,14 +4,20 @@
     <meta charset="UTF-8">
     <title>Guess the Job - Interactive</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; display: flex; height: 100vh; margin: 0; background: #eef2f3; }
+        body { font-family: 'Segoe UI', sans-serif; display: flex; height: 100vh; margin: 0; background: #eef2f3; overflow: hidden; }
+        
+        /* Left Panel */
         #left { width: 40%; padding: 50px; display: flex; flex-direction: column; justify-content: center; }
-        #right { width: 60%; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); background: #333; gap: 2px; border: 5px solid white; }
-        .tile { background-color: #555; background-size: 300% 300%; background-repeat: no-repeat; border: 1px solid #000; transition: background 0.3s; }
-        .hidden { background-color: #555; background-image: none !important; }
-        button { padding: 15px 30px; font-size: 20px; cursor: pointer; background: #28a745; color: white; border: none; border-radius: 8px; margin-top: 20px; }
-        h1 { color: #2c3e50; }
-        .clue-box { font-size: 24px; font-weight: bold; color: #34495e; min-height: 120px; }
+        h1 { color: #2c3e50; font-size: 40px; margin-bottom: 20px; }
+        .clue-box { font-size: 36px; font-weight: 700; color: #2c3e50; min-height: 200px; line-height: 1.4; padding-right: 20px; }
+        #progress { font-size: 18px; color: #7f8c8d; margin-bottom: 10px; }
+        button { padding: 20px 40px; font-size: 24px; cursor: pointer; background: #28a745; color: white; border: none; border-radius: 12px; margin-top: 40px; transition: 0.3s; }
+        button:hover { background: #218838; transform: scale(1.05); }
+
+        /* Right Panel (Image Grid) */
+        #right { width: 60%; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); background: #333; gap: 2px; border: 5px solid white; position: relative; }
+        .tile { background-color: #555; background-size: cover; background-position: center; border: 1px solid #000; transition: background 0.5s; }
+        .hidden { background-image: none !important; background-color: #555 !important; }
     </style>
 </head>
 <body>
@@ -37,7 +43,7 @@
         { name: "Police Officer", img: "https://source.unsplash.com/600x400/?police", clues: ["I work on the street.", "I use a shiny badge.", "I work with other officers.", "I help in dangerous times.", "My main job is to keep people safe."] },
         { name: "Firefighter", img: "https://source.unsplash.com/600x400/?firefighter", clues: ["I work at a fire station.", "I use a water hose.", "I work with a rescue team.", "I help people in fires.", "My main job is to stop fires."] },
         { name: "Pilot", img: "https://source.unsplash.com/600x400/?pilot", clues: ["I work in an airplane.", "I use buttons and levers.", "I work with flight crew.", "I help passengers travel.", "My main job is to fly the plane."] },
-        { name: "Librarian", img: "https://source.unsplash.com/600x400/?librarian", clues: ["I work in a library.", "I use many books.", "I work with library staff.", "I help people find stories.", "My main job is to organize books."] },
+        { name: "Waiter", img: "https://source.unsplash.com/600x400/?waiter", clues: ["I work in a restaurant.", "I use a serving tray.", "I work with chefs.", "I help hungry people.", "My main job is to serve food."] },
         { name: "Dentist", img: "https://source.unsplash.com/600x400/?dentist", clues: ["I work in a clinic.", "I use a small mirror.", "I work with nurses.", "I help with toothaches.", "My main job is to clean teeth."] },
         { name: "Farmer", img: "https://source.unsplash.com/600x400/?farmer", clues: ["I work on a farm.", "I use a big tractor.", "I work with farm animals.", "I help feed families.", "My main job is to grow food."] },
         { name: "Hairdresser", img: "https://source.unsplash.com/600x400/?hairdresser", clues: ["I work in a salon.", "I use sharp scissors.", "I work with other stylists.", "I help you look good.", "My main job is to cut hair."] },
@@ -45,7 +51,7 @@
         { name: "Veterinarian", img: "https://source.unsplash.com/600x400/?veterinarian", clues: ["I work in an animal clinic.", "I use animal medicine.", "I work with assistants.", "I help sick pets.", "My main job is to care for animals."] },
         { name: "Baker", img: "https://source.unsplash.com/600x400/?baker", clues: ["I work in a bakery.", "I use a big oven.", "I work with shop staff.", "I help hungry people.", "My main job is to bake bread."] },
         { name: "Bus Driver", img: "https://source.unsplash.com/600x400/?bus-driver", clues: ["I work on the road.", "I use a big bus.", "I work with passengers.", "I help you travel.", "My main job is to drive the bus."] },
-        { name: "Mail Carrier", img: "https://source.unsplash.com/600x400/?mail-carrier", clues: ["I walk in neighborhoods.", "I use a heavy bag.", "I work at the post office.", "I help you get letters.", "My main job is to deliver mail."] },
+        { name: "Postman", img: "https://source.unsplash.com/600x400/?postman", clues: ["I walk in neighborhoods.", "I use a heavy bag.", "I work at the post office.", "I help you get letters.", "My main job is to deliver mail."] },
         { name: "Artist", img: "https://source.unsplash.com/600x400/?artist", clues: ["I work in a studio.", "I use a paintbrush.", "I work with galleries.", "I help people enjoy art.", "My main job is to paint."] },
         { name: "Mechanic", img: "https://source.unsplash.com/600x400/?mechanic", clues: ["I work in a garage.", "I use a heavy wrench.", "I work with tools.", "I help people with cars.", "My main job is to fix cars."] },
         { name: "Nurse", img: "https://source.unsplash.com/600x400/?nurse", clues: ["I work in a hospital.", "I use a thermometer.", "I work with doctors.", "I help sick patients.", "My main job is to care for you."] },
@@ -65,15 +71,13 @@
             let tile = document.getElementById('t' + revealOrder[step]);
             tile.classList.remove('hidden');
             tile.style.backgroundImage = `url(${jobs[jobIndex].img})`;
-            tile.style.backgroundPosition = (revealOrder[step] % 3 * 50) + "% " + (Math.floor(revealOrder[step] / 3) * 50) + "%";
             step++;
             btn.innerText = "Next Clue";
         } else {
             // Reveal all
-            document.querySelectorAll('.tile').forEach((t, i) => {
+            document.querySelectorAll('.tile').forEach((t) => {
                 t.classList.remove('hidden');
                 t.style.backgroundImage = `url(${jobs[jobIndex].img})`;
-                t.style.backgroundPosition = (i % 3 * 50) + "% " + (Math.floor(i / 3) * 50) + "%";
             });
             document.getElementById('clue-text').innerHTML = `<strong>IT IS A: ${jobs[jobIndex].name}!</strong>`;
             btn.innerText = "Next Job";
